@@ -1,3 +1,16 @@
+# 실행 방법
+
+1. git clone
+2. npm install
+3. npm run dev
+4. json-server --watch db.json
+
+   a. 만약 안된다면 json server 설치
+
+<br>
+
+# 요구사항
+
 - [x] 테이블 헤더
 
   - [x] 검색 컴포넌트
@@ -14,10 +27,3 @@
   - [x] 페이지네이션
     - [x] 페이지당 표시 row 수
     - [x] 1,2,3,4,5 : 조작시 파라미터 변경해서 api 재요청
-
-1. git clone
-2. npm install
-3. npm run dev
-4. json-server --watch db.json
-
-   a. 만약 안된다면 json server 설치
