@@ -12,7 +12,7 @@ const initialState: TableDataProps = {
   data: [],
   currentPage: 1,
   endPage: 1,
-  limit: 5,
+  limit: 10,
 };
 
 const tableDataSlice = createSlice({
