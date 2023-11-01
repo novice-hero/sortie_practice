@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { tableDataActions } from "../../store/tableDataSlice";
 
 const Filter = () => {
-  const [selectedValue, setSelectedValue] = useState(5);
+  const [selectedValue, setSelectedValue] = useState(10);
   const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
