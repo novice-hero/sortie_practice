@@ -1,37 +1,26 @@
-import { useState } from "react";
 import { TableRowData } from "../type";
-import { useDispatch } from "react-redux";
-import { selectedDataActions } from "../store/selectedDataSlice";
+
+type HandleSingleChange = (arg0: boolean, arg1: TableRowData) => void;
+type HandleAllChange = (arg0: boolean) => void;
 
 interface Props {
+  isChecked: boolean;
   data?: TableRowData;
-  allData?: TableRowData[];
+  handleChange: HandleSingleChange | HandleAllChange;
 }
 
-const Checkbox = ({ data, allData }: Props) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const dispatch = useDispatch();
-
-  const handleChange = () => {
-    setIsChecked(!isChecked);
-
-    if (allData) {
-      if (isChecked) {
-        dispatch(selectedDataActions.resetData());
-        return;
+const Checkbox = ({ isChecked, data, handleChange }: Props) => {
+  return (
+    <input
+      type="checkbox"
+      checked={isChecked}
+      onChange={(e) =>
+        data
+          ? handleChange(e.target.checked, data)
+          : handleChange(e.target.checked)
       }
-      dispatch(selectedDataActions.addData(allData));
-      return;
-    }
-
-    if (isChecked) {
-      dispatch(selectedDataActions.removeData(data));
-      return;
-    }
-    dispatch(selectedDataActions.addData(data));
-  };
-
-  return <input type="checkbox" checked={isChecked} onChange={handleChange} />;
+    />
+  );
 };
 
 export default Checkbox;
