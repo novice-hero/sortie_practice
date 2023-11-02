@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 const PrintButton = () => {
-  const data = useSelector((state: RootState) => state.selectedData.data);
+  const data = useSelector((state: RootState) => state.checkedData.data);
   const printData = () => {
     console.log(data);
   };
