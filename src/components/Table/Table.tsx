@@ -65,7 +65,10 @@ const Table = () => {
     initData();
   }, [currentLabel, currentOrder, currentPage, dispatch, limit]);
 
-  const handleChecked = (isChecked: boolean, checkedData: TableRowData) => {
+  const handleChecked = (
+    isChecked: boolean,
+    checkedData: TableRowData | undefined
+  ) => {
     if (isChecked) {
       dispatch(checkedDataActions.addData(checkedData));
       return;

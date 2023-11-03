@@ -1,12 +1,11 @@
 import { TableRowData } from "../type";
 
-type HandleSingleChange = (arg0: boolean, arg1: TableRowData) => void;
-type HandleAllChange = (arg0: boolean) => void;
+type HandleChange = (arg0: boolean, arg1?: TableRowData) => void;
 
 interface Props {
   isChecked: boolean;
   data?: TableRowData;
-  handleChange: HandleSingleChange | HandleAllChange;
+  handleChange: HandleChange;
 }
 
 const Checkbox = ({ isChecked, data, handleChange }: Props) => {
