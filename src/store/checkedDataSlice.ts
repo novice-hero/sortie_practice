@@ -9,12 +9,15 @@ const initialState: Props = {
   data: [],
 };
 
-const selectedDataSlice = createSlice({
-  name: "selectedData",
+const checkedDataSlice = createSlice({
+  name: "checkedData",
   initialState,
   reducers: {
     addData(state, action) {
       state.data.push(action.payload);
+    },
+    addAlldata(state, action) {
+      state.data = action.payload;
     },
     removeData(state, action) {
       state.data = state.data.filter(
@@ -27,5 +30,5 @@ const selectedDataSlice = createSlice({
   },
 });
 
-export const selectedDataReducer = selectedDataSlice.reducer;
-export const selectedDataActions = selectedDataSlice.actions;
+export const checkedDataReducer = checkedDataSlice.reducer;
+export const checkedDataActions = checkedDataSlice.actions;

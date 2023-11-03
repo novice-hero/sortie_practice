@@ -8,6 +8,7 @@ import { tableDataActions } from "../../store/tableDataSlice";
 import { sortClickActions } from "../../store/sortClickSlice";
 import Checkbox from "../Checkbox";
 import { TableRowData } from "../../type";
+import { checkedDataActions } from "../../store/checkedDataSlice";
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -22,10 +23,7 @@ const Table = () => {
   const currentOrder = useSelector(
     (state: RootState) => state.sortClick.currentOrder
   );
-
-  const selectedData = useSelector(
-    (state: RootState) => state.selectedData.data
-  );
+  const checkedData = useSelector((state: RootState) => state.checkedData.data);
 
   const headerLabel = tableHeader.map((data) => data.label);
 
@@ -67,12 +65,34 @@ const Table = () => {
     initData();
   }, [currentLabel, currentOrder, currentPage, dispatch, limit]);
 
+  const handleChecked = (
+    isChecked: boolean,
+    checkedData: TableRowData | undefined
+  ) => {
+    if (isChecked) {
+      dispatch(checkedDataActions.addData(checkedData));
+      return;
+    }
+    dispatch(checkedDataActions.removeData(checkedData));
+  };
+
+  const handleAllChecked = (isChecked: boolean) => {
+    if (isChecked) {
+      dispatch(checkedDataActions.addAlldata(tableData));
+      return;
+    }
+    dispatch(checkedDataActions.resetData());
+  };
+
   return (
     <TableWrapper>
       <TableHeader>
         <tr>
           <td>
-            <Checkbox allData={tableData} />
+            <Checkbox
+              handleChange={handleAllChecked}
+              isChecked={checkedData.length === tableData.length}
+            />
           </td>
           {tableHeader.map((data) =>
             data.label === "registrationNumber" ||
@@ -100,10 +120,16 @@ const Table = () => {
         {tableData?.map((data, idx) => (
           <TableRow
             key={data.applicant + data.phoneNumber + idx}
-            isSelected={checkSelectedRow(data, selectedData)}
+            isSelected={checkSelectedRow(data, checkedData)}
           >
             <td>
-              <Checkbox data={data} />
+              <Checkbox
+                handleChange={handleChecked}
+                data={data}
+                isChecked={checkedData
+                  .map((data) => data.registrationNumber)
+                  .includes(data.registrationNumber)}
+              />
             </td>
             {headerLabel.map((label, innerIdx) => (
               <td key={label + innerIdx}>{data[label]}</td>
